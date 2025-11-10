@@ -5,6 +5,10 @@ on:
     branches:
       - main  #  Déclenchement automatique à chaque push sur la branche main
 
+permissions:
+  contents: read            # pour checkout
+  id-token: write           # nécessaire pour OIDC
+
 jobs:
   deploy:
     runs-on: ubuntu-latest #  VM Ubuntu pour le pipeline
@@ -38,6 +42,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::319094876562:role/Demo-GithubAction-Amplify
           aws-region: eu-west-3
+          output-env-credentials: true
 
       # 6️⃣ Installer Amplify CLI et publier sur Amplify
       - name: Publish to Amplify
